@@ -54,9 +54,12 @@ my $oid_inlet_temp = "$oid_powernet393.4.5.2.1.7.0";#roel aangepast
 my $oid_supply_temp = "$oid_powernet393.4.5.2.1.9.0";#roel aangepast
 my $oid_return_temp = "$oid_powernet393.4.5.2.1.11.0";#roel aangepast
 my $oid_enterfluid_temp = "$oid_powernet393.2.23.0";
+my $oid_cool_demand ="$oid_powernet393.4.5.2.1.3.0";
+my $oid_cool_output ="$oid_powernet393.4.5.2.1.2.0";
+my $oid_airflow = "$oid_powernet393.4.5.2.1.5.0";
 
 
-my @oids = ($oid_thresh_inlet_temp, $oid_thresh_supply_temp, $oid_thresh_return_temp, $oid_thresh_enterfluid_temp, $oid_inlet_temp, $oid_supply_temp, $oid_return_temp, $oid_enterfluid_temp);
+my @oids = ($oid_thresh_inlet_temp, $oid_thresh_supply_temp, $oid_thresh_return_temp, $oid_thresh_enterfluid_temp, $oid_inlet_temp, $oid_supply_temp, $oid_return_temp, $oid_enterfluid_temp, $oid_cool_demand, $oid_cool_output, $oid_airflow);
 
 
 ########
@@ -157,6 +160,23 @@ elsif ($result->{$oid_enterfluid_temp} > $warnpercent*$result->{$oid_thresh_ente
 }
 
 ###add perfdata
+$plugin->add_perfdata(
+	label =>"airflow",
+	value =>$result->{$oid_airflow},
+	);
+
+$plugin->add_perfdata(
+	label =>"cool_demand",
+	value =>$result->{$oid_cool_demand},
+	uom => "%"
+	);
+$plugin->add_perfdata(
+	label =>"cool_output",
+	value =>$result->{$oid_cool_output},
+	uom => "%"
+	);
+
+
 $plugin->add_perfdata(
      label => "inlet_temp",
      value => $inlet,
