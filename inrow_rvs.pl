@@ -109,7 +109,7 @@ if ($error != 0) {
 my $warn=0;
 
 my $inlet = $result->{$oid_inlet_temp}/10;
-print ("Inlet: $inlet ");
+print ("Inlet:$inlet ");
 
 if ($result->{$oid_inlet_temp} > $result->{$oid_thresh_inlet_temp}){
 	print "over threshold! ";
@@ -156,6 +156,25 @@ elsif ($result->{$oid_enterfluid_temp} > $warnpercent*$result->{$oid_thresh_ente
 	$warn++;
 }
 
+###add perfdata
+$plugin->add_perfdata(
+     label => "inlet_temp",
+     value => $inlet,
+     uom => "c",
+#     threshold => "40"
+   );
+
+$plugin->add_perfdata(
+	label =>"supply_temp",
+	value => $supply,
+	uom => "c",
+);
+
+$plugin->add_perfdata(
+	label => "return_temp",
+	value => $return,
+	uom => "c",
+);
 
 	
 if ($error != 0) { $plugin->nagios_exit(
@@ -173,4 +192,6 @@ if ($warn != 0) {
 #no errors or warnings
 
 $plugin->nagios_exit('OK',"");
+
 print "\n";
+
