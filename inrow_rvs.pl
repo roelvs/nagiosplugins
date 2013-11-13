@@ -160,20 +160,19 @@ elsif ($result->{$oid_enterfluid_temp} > $warnpercent*$result->{$oid_thresh_ente
 $plugin->add_perfdata(
      label => "inlet_temp",
      value => $inlet,
-     uom => "c",
-#     threshold => "40"
+        #     threshold => "40"
    );
 
 $plugin->add_perfdata(
 	label =>"supply_temp",
 	value => $supply,
-	uom => "c",
+
 );
 
 $plugin->add_perfdata(
 	label => "return_temp",
 	value => $return,
-	uom => "c",
+
 );
 
 	
